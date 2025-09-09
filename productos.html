@@ -34,6 +34,14 @@
             <option value="mousepad">Mousepad</option>
             <option value="poleras-personalizadas">Poleras Personalizadas</option>
         </select>
+        <label for="filtro-orden">Ordenar por:</label>
+    <select id="filtro-orden">
+        <option value="default">Por defecto</option>
+        <option value="precio-asc">Precio: menor a mayor</option>
+        <option value="precio-desc">Precio: mayor a menor</option>
+        <option value="az">Nombre: A-Z</option>
+        <option value="za">Nombre: Z-A</option>
+    </select>
 
         <div class="productos-lista" id="catalogo"></div>
     </section>
@@ -188,11 +196,23 @@
     const descuento = currentUser.discount || 0;
 
 
-    function renderCatalogo(filtro = "todos") {
+    function renderCatalogo(filtro = "todos", orden = "default") {
         const catalogoDiv = document.getElementById("catalogo");
         catalogoDiv.innerHTML = "";
-        productos.forEach((producto, idx) => {
-            if (filtro !== "todos" && producto.categoria !== filtro) return;
+        let productosFiltrados = productos.filter(producto => 
+            filtro === "todos" || producto.categoria === filtro
+        );
+        if (orden === "precio-asc") {
+            productosFiltrados.sort((a, b) => a.precio - b.precio);
+        } else if (orden === "precio-desc") {
+            productosFiltrados.sort((a, b) => b.precio - a.precio);
+        } else if (orden === "az") {
+            productosFiltrados.sort((a, b) => a.nombre.localeCompare(b.nombre));
+        } else if (orden === "za") {
+            productosFiltrados.sort((a, b) => b.nombre.localeCompare(a.nombre));
+        }
+
+        productosFiltrados.forEach((producto, idx) => {
             let precioFinal = producto.precio;
             let precioHTML = `<span class="precio-descuento">$${producto.precio}</span>`;
             if (descuento > 0) {
@@ -273,10 +293,16 @@
     }
 
 
-    document.getElementById('filtro-categoria').addEventListener('change', function() {
-        renderCatalogo(this.value);
+    const filtroCategoria = document.getElementById('filtro-categoria');
+    const filtroOrden = document.getElementById('filtro-orden');
+
+    function actualizarCatalogo() {
+        renderCatalogo(filtroCategoria.value, filtroOrden.value);}
         document.getElementById('modal-detalle').style.display = 'none';
-    });
+        
+    filtroCategoria.addEventListener('change', actualizarCatalogo);
+    filtroOrden.addEventListener('change', actualizarCatalogo);
+    
 
 
     document.getElementById('cerrar-modal').onclick = function() {
