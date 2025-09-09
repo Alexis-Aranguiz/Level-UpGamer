@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Usuario | Level-Up Gamer</title>
     <link rel="stylesheet" href="CSS/estilos.css" />
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 <body>
     <header>
@@ -19,42 +21,42 @@
     </header>
 
     <section class="extracto">
-    <h2>Registro de Usuario</h2>
-    <form id="form-registro">
-        <label for="nombre">Nombre completo:</label>
-        <input type="text" id="nombre" name="nombre" required />
+        <h2>Registro de Usuario</h2>
+        <form id="registerForm">
+            <label for="name">Nombre completo:</label>
+            <input type="text" id="name" name="name" required />
 
-        <label for="correo">Correo electrónico:</label>
-        <input type="email" id="correo" name="correo" required />
+            <label for="email">Correo electrónico:</label>
+            <input type="email" id="email" name="email" required />
 
-        <label for="edad">Edad:</label>
-        <input type="number" id="edad" name="edad" min="18" required />
+            <label for="birthdate">Fecha de nacimiento:</label>
+            <input type="date" id="birthdate" name="birthdate" required />
 
-        <label for="password">Contraseña:</label>
-        <input type="password" id="password" name="password" required />
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password" required />
 
-        <label for="referido">Código de referido (opcional):</label>
-        <input type="text" id="referido" name="referido" />
+            <label for="referido">Código de referido (opcional):</label>
+            <input type="text" id="referido" name="referido" />
 
-        <div id="levelup-info" style="margin-top:10px;">
-            <strong>Puntos LevelUp:</strong> <span id="puntos-levelup">0</span>
-            <br>
-            <small>¡Gana puntos invitando amigos y sube de nivel para canjear productos y descuentos!</small>
-        </div>
+            <div id="levelup-info" style="margin-top:10px;">
+                <strong>Puntos LevelUp:</strong> <span id="puntos-levelup">0</span>
+                <br>
+                <small>¡Gana puntos invitando amigos y sube de nivel para canjear productos y descuentos!</small>
+            </div>
 
-        <button type="submit">Registrarse</button>
-        <p class="info-descuento">* Usuarios con correo Duoc reciben 20% de descuento de por vida.</p>
-    </form>
-</section>
+            <button type="submit">Registrarse</button>
+            <p class="info-descuento">* Usuarios con correo Duoc reciben 20% de descuento de por vida.</p>
+        </form>
+    </section>
 
     <section class="extracto">
         <h2>Iniciar Sesión</h2>
-        <form id="form-login">
-            <label for="login-correo">Correo electrónico:</label>
-            <input type="email" id="login-correo" name="login-correo" required />
+        <form id="loginForm">
+            <label for="loginEmail">Correo electrónico:</label>
+            <input type="email" id="loginEmail" name="loginEmail" required />
 
-            <label for="login-password">Contraseña:</label>
-            <input type="password" id="login-password" name="login-password" required />
+            <label for="loginPassword">Contraseña:</label>
+            <input type="password" id="loginPassword" name="loginPassword" required />
 
             <button type="submit">Ingresar</button>
         </form>
@@ -76,5 +78,150 @@
         </form>
     </section>
 
+    <div id="info-usuario"></div>
+    <button id="logoutBtn">Cerrar sesión</button>
+
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+    <script>
+    flatpickr("#birthdate", {
+        "locale": "es",
+        dateFormat: "d/m/Y", // dd/mm/aaaa
+        maxDate: "today"
+    });
+    </script>
+
+    <script>
+    // Simulación de Storage (puedes reemplazar esto por tu propio sistema)
+    const Storage = {
+        get: (key, def) => JSON.parse(localStorage.getItem(key)) || def,
+        set: (key, val) => localStorage.setItem(key, JSON.stringify(val)),
+        push: (key, val) => {
+            const arr = JSON.parse(localStorage.getItem(key)) || [];
+            arr.push(val);
+            localStorage.setItem(key, JSON.stringify(arr));
+        },
+        remove: key => localStorage.removeItem(key)
+    };
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const registerForm = document.querySelector("#registerForm");
+        const loginForm = document.querySelector("#loginForm");
+        const logoutBtn = document.querySelector("#logoutBtn");
+        const infoUsuario = document.querySelector("#info-usuario");
+
+        // REGISTRO
+        if (registerForm) {
+            registerForm.addEventListener("submit", e => {
+                e.preventDefault();
+                const name = registerForm.querySelector("#name").value.trim();
+                const email = registerForm.querySelector("#email").value.trim();
+                const password = registerForm.querySelector("#password").value;
+                const birthdate = registerForm.querySelector("#birthdate").value;
+
+                // Validar campos vacíos
+                if (!name) {
+                    alert("Este campo no debe estar vacio");
+                    registerForm.querySelector("#name").focus();
+                    return;
+                }
+                if (!email) {
+                    alert("Este campo no debe estar vacio");
+                    registerForm.querySelector("#email").focus();
+                    return;
+                }
+                if (!birthdate) {
+                    alert("Este campo no debe estar vacio");
+                    registerForm.querySelector("#birthdate").focus();
+                    return;
+                }
+                if (!password) {
+                    alert("Este campo no debe estar vacio");
+                    registerForm.querySelector("#password").focus();
+                    return;
+                }
+
+                const birth = new Date(birthdate);
+
+                // Validar edad (18+)
+                const today = new Date();
+                let age = today.getFullYear() - birth.getFullYear();
+                const m = today.getMonth() - birth.getMonth();
+                if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
+                    age--;
+                }
+                if (age < 18) {
+                    alert("Para registarte en nuestra pagina debes tener 18 años o mas");
+                    return;
+                }
+
+                // Validar correo Duoc
+                let discount = 0;
+                if (/@duoc(\.cl|uc\.cl)$/i.test(email)) {
+                    discount = 20;
+                }
+
+                // Validar si el usuario ya existe
+                const users = Storage.get("users", []);
+                if (users.some(u => u.email === email)) {
+                    alert("Ya existe un usuario registrado con este correo.");
+                    return;
+                }
+
+                const user = { name, email, password, discount, points:0, referrals:0, purchases:[] };
+                Storage.push("users", user);
+                Storage.set("currentUser", user);
+                alert("Registro exitoso! Bienvenido " + name);
+                window.location.reload();
+            });
+        }
+
+        // LOGIN
+        if (loginForm) {
+            loginForm.addEventListener("submit", e => {
+                e.preventDefault();
+                const email = loginForm.querySelector("#loginEmail").value.trim();
+                const password = loginForm.querySelector("#loginPassword").value;
+
+                const users = Storage.get("users", []);
+                const found = users.find(u => u.email===email && u.password===password);
+                if (!found) {
+                    alert("Correo o contraseña incorrectos. Intenta de nuevo.");
+                    return;
+                }
+                Storage.set("currentUser", found);
+                alert("Bienvenido " + found.name);
+                window.location.reload();
+            });
+        }
+
+        // Mostrar información del usuario
+        const currentUser = Storage.get("currentUser");
+        if (currentUser) {
+            infoUsuario.innerHTML = `
+                <h2>Bienvenido, ${currentUser.name}</h2>
+                <p>Email: ${currentUser.email}</p>
+                <p>Descuento: ${currentUser.discount || 0}%</p>
+                <p>Puntos: ${currentUser.points || 0}</p>
+                <p>Referidos: ${currentUser.referrals || 0}</p>
+            `;
+        } else {
+            infoUsuario.innerHTML = "<p>No has iniciado sesión.</p>";
+        }
+
+        // Cerrar sesión
+        if (logoutBtn) {
+            logoutBtn.addEventListener("click", () => {
+                Storage.remove("currentUser");
+                alert("Has cerrado sesión.");
+                window.location.reload();
+            });
+        }
+    });
+    </script>
+
+
+</script>
 </body>
 </html>

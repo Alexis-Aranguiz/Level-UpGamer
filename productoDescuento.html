@@ -36,6 +36,13 @@
             <option value="poleras-personalizadas">Poleras Personalizadas</option>
         </select>
 
+        <!-- Agrega esto después del filtro de categoría -->
+        <div id="carrito-canje" style="background:#f3f3f3; padding:10px; margin:20px 0; border-radius:8px;">
+            <h3>Carrito de Canje</h3>
+            <ul id="lista-carrito-canje"></ul>
+            <div id="total-carrito-canje"></div>
+        </div>
+
         <div class="productos-lista">
             <div class="producto" data-categoria="juegos-de-mesa"
                 data-nombre="Catan"
@@ -195,8 +202,12 @@
     </div>
 
     <script>
-    // Puntos Level-Up iniciales (puedes obtenerlos de usuario logueado)
-    let puntosLevelUp = 350;
+    // Redirige a gestión de usuario si no hay un usuario actual
+
+
+    // Lee los puntos Level-Up desde localStorage o inicia en 0 si no hay
+    let puntosLevelUp = parseInt(localStorage.getItem('puntosLevelUp')) || 0;
+    document.getElementById('puntos-actuales').textContent = puntosLevelUp;
 
     // Filtro por categoría
     document.getElementById('filtro-categoria').addEventListener('change', function() {
@@ -251,15 +262,124 @@
         }
     };
 
-    // Canje de producto por puntos
-    function canjearProducto(nombre, puntosNecesarios) {
-        if (puntosLevelUp >= puntosNecesarios) {
-            puntosLevelUp -= puntosNecesarios;
-            document.getElementById('puntos-actuales').textContent = puntosLevelUp;
-            alert(`¡Has canjeado "${nombre}" por ${puntosNecesarios} puntos Level-Up!`);
+    // --- Manejo del carrito en localStorage ---
+    function agregarAlCarritoGratis(nombre) {
+        // Recupera el carrito actual o crea uno nuevo
+        let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        // Verifica si el producto ya está en el carrito
+        const existente = carrito.find(item => item.nombre === nombre && item.precio === 0);
+        if (existente) {
+            existente.cantidad += 1;
         } else {
-            alert('No tienes suficientes puntos Level-Up para canjear este producto.');
+            carrito.push({ nombre: nombre, precio: 0, cantidad: 1 });
         }
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+    }
+
+    function mostrarCarritoCanje() {
+        const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        const lista = document.getElementById('lista-carrito-canje');
+        const totalDiv = document.getElementById('total-carrito-canje');
+        lista.innerHTML = '';
+        let totalPuntos = 0;
+
+        if (carrito.length === 0) {
+            lista.innerHTML = '<li>El carrito está vacío.</li>';
+            totalDiv.innerHTML = '';
+            return;
+        }
+
+        carrito.forEach((item, idx) => {
+            // Busca el producto en la lista para saber cuántos puntos costó originalmente
+            const productoDiv = Array.from(document.querySelectorAll('.producto'))
+                .find(p => p.getAttribute('data-nombre') === item.nombre);
+            let puntosNecesarios = 0;
+            if (productoDiv) {
+                const descuento = parseInt(productoDiv.getAttribute('data-descuento')) || 0;
+                const base = parseInt(productoDiv.getAttribute('data-puntos')) || 0;
+                puntosNecesarios = descuento > 0 ? Math.round(base * (1 - descuento / 100)) : base;
+            }
+            totalPuntos += puntosNecesarios * item.cantidad;
+
+            const li = document.createElement('li');
+            li.innerHTML = `
+                ${item.nombre} - Cantidad: 
+                <button onclick="cambiarCantidadCarrito(${idx}, -1)">-</button>
+                <span>${item.cantidad}</span>
+                <button onclick="cambiarCantidadCarrito(${idx}, 1)">+</button>
+                <button onclick="eliminarDelCarritoCanje(${idx})">Eliminar</button>
+                <br>Puntos necesarios: ${puntosNecesarios * item.cantidad}
+            `;
+            lista.appendChild(li);
+        });
+
+        totalDiv.innerHTML = `
+            <strong>Puntos necesarios para canjear todo: ${totalPuntos}</strong><br>
+            <button id="btn-canjear-carrito" ${puntosLevelUp < totalPuntos ? 'disabled' : ''}>
+                Canjear Carrito
+            </button>
+            <div id="mensaje-canje-carrito" style="margin-top:8px;"></div>
+        `;
+
+        // Asigna evento al botón
+        const btn = document.getElementById('btn-canjear-carrito');
+        if (btn) {
+            btn.onclick = function() {
+                canjearCarrito(totalPuntos);
+            };
+        }
+    }
+
+    function cambiarCantidadCarrito(idx, delta) {
+        let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        carrito[idx].cantidad += delta;
+        if (carrito[idx].cantidad < 1) carrito[idx].cantidad = 1;
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        mostrarCarritoCanje();
+    }
+
+    function eliminarDelCarritoCanje(idx) {
+        let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        carrito.splice(idx, 1);
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        mostrarCarritoCanje();
+    }
+
+    function canjearCarrito(totalPuntos) {
+        const mensajeDiv = document.getElementById('mensaje-canje-carrito');
+        if (puntosLevelUp < totalPuntos) {
+            mensajeDiv.innerHTML = `<span style="color:red;">No tienes suficientes puntos Level-Up para canjear todos los productos del carrito.</span>`;
+            return;
+        }
+        puntosLevelUp -= totalPuntos;
+        localStorage.setItem('puntosLevelUp', puntosLevelUp);
+        document.getElementById('puntos-actuales').textContent = puntosLevelUp;
+        localStorage.setItem('carrito', JSON.stringify([]));
+
+        // Guarda el mensaje de éxito
+        const mensajeExito = `<span style="color:green;">
+            ¡Canje realizado correctamente!<br>
+            Recibirás un voucher de confirmación en tu correo electrónico.<br>
+            Gracias por usar tus puntos Level-Up.
+        </span>`;
+
+        mostrarCarritoCanje();
+
+        // Si el carrito está vacío, vuelve a mostrar el mensaje
+        document.getElementById('total-carrito-canje').innerHTML = mensajeExito;
+
+        actualizarBotonesCanje();
+    }
+
+    // Llama a la función al cargar la página y después de cada canje
+    mostrarCarritoCanje();
+
+    // Modifica canjearProducto para actualizar el carrito visual
+    function canjearProducto(nombre, puntosNecesarios) {
+        agregarAlCarritoGratis(nombre);
+        alert(`¡Has agregado "${nombre}" al carrito de canje!`);
+        actualizarBotonesCanje();
+        mostrarCarritoCanje(); // <-- Actualiza el carrito visual
     }
 
     // Deshabilita botones si no tienes puntos suficientes
@@ -276,12 +396,6 @@
     // Actualiza botones al cargar y al canjear
     actualizarBotonesCanje();
     document.getElementById('filtro-categoria').addEventListener('change', actualizarBotonesCanje);
-
-    // Actualiza botones cada vez que se canjea
-    window.canjarProducto = function(nombre, puntosNecesarios) {
-        canjearProducto(nombre, puntosNecesarios);
-        actualizarBotonesCanje();
-    };
     </script>
 </body>
 </html>

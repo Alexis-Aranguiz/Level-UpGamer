@@ -5,6 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Productos Level-Up Gamer</title>
     <link rel="stylesheet" href="CSS/estilos.css" />
+    <style>
+        .producto {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 12px;
+            display: inline-block;
+            vertical-align: top;
+            width: 220px;
+            background: #fafafa;
+            box-shadow: 0 2px 8px #0001;
+            text-align: center;
+        }
+        .producto img {
+            max-width: 120px;
+            margin-bottom: 10px;
+        }
+        .estrellas {
+            color: #FFD700;
+            font-size: 1.1em;
+            margin-bottom: 6px;
+        }
+        .precio-original {
+            text-decoration: line-through;
+            color: #888;
+        }
+        .precio-descuento {
+            color: #e53935;
+            font-weight: bold;
+        }
+        .descuento-label {
+            color: #388e3c;
+            font-size: 0.95em;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -31,144 +66,19 @@
             <option value="mouse">Mouse</option>
             <option value="mousepad">Mousepad</option>
             <option value="poleras-personalizadas">Poleras Personalizadas</option>
-            <option value="polerones-gamers-personalizados">Polerones Gamers Personalizados</option>
-            <option value="servicio-tecnico">Servicio Técnico</option>
         </select>
 
-        <div class="productos-lista">
-    <div class="producto" data-categoria="juegos-de-mesa"
-        data-nombre="Catan"
-        data-descripcion="Un clásico juego de estrategia donde los jugadores compiten por colonizar y expandirse en la isla de Catan. Ideal para 3-4 jugadores y perfecto para noches de juego en familia o con amigos. <br><strong>Fabricante:</strong> Kosmos | <strong>Distribuidor:</strong> Devir."
-        data-img="images/catan.png"
-        data-reseñas='["Muy entretenido para jugar en familia.", "Excelente calidad de piezas.","4⭐"]'>
-        <img src="images/catan.png" alt="Catan" class="producto-img" />
-        <h3>Catan</h3>
-        <p>Juego de mesa clásico de estrategia.</p>
-        <p><strong>$29.990 CLP</strong></p>
-        <button onclick="agregarAlCarrito('Catan', 29990)">Agregar al carrito</button>
-    </div>
+        <div class="productos-lista" id="catalogo"></div>
+    </section>
 
-    <div class="producto" data-categoria="juegos-de-mesa"
-        data-nombre="Carcassonne"
-        data-descripcion="Un juego de colocación de fichas donde los jugadores construyen el paisaje alrededor de la fortaleza medieval de Carcassonne. Ideal para 2-5 jugadores y fácil de aprender. <br><strong>Fabricante:</strong> Hans im Glück | <strong>Distribuidor:</strong> Devir."
-        data-img="images/carcassonne.png"
-        data-reseñas='["Perfecto para iniciar en juegos de mesa.", "Muy divertido y fácil de aprender.","5⭐"]'>
-        <img src="images/carcassonne.png" alt="Carcassonne" class="producto-img" />
-        <h3>Carcassonne</h3>
-        <p>Juego de colocación de fichas.</p>
-        <p><strong>$24.990 CLP</strong></p>
-        <button onclick="agregarAlCarrito('Carcassonne', 24990)">Agregar al carrito</button>
-    </div>
-
-    <div class="producto" data-categoria="accesorios"
-        data-nombre="Controlador Inalámbrico Xbox Series X"
-        data-descripcion="Ofrece una experiencia de juego cómoda con botones mapeables y una respuesta táctil mejorada. Compatible con consolas Xbox y PC. <br><strong>Fabricante:</strong> Microsoft | <strong>Distribuidor:</strong> Microsoft Store."
-        data-img="images/xbox-controller.jpg"
-        data-reseñas='["Muy cómodo y preciso.", "Funciona perfecto en PC y Xbox.","4⭐"]'>
-        <img src="images/xbox-controller.jpg" alt="Controlador Xbox" class="producto-img" />
-        <h3>Controlador Inalámbrico Xbox Series X</h3>
-        <p>Control inalámbrico para Xbox y PC.</p>
-        <p><strong>$59.990 CLP</strong></p>
-        <button onclick="agregarAlCarrito('Controlador Inalámbrico Xbox Series X', 59990)">Agregar al carrito</button>
-    </div>
-
-    <div class="producto" data-categoria="accesorios"
-        data-nombre="Auriculares Gamer HyperX Cloud II"
-        data-descripcion="Proporcionan un sonido envolvente de calidad con un micrófono desmontable y almohadillas de espuma viscoelástica para mayor comodidad durante largas sesiones de juego. <br><strong>Fabricante:</strong> HyperX | <strong>Distribuidor:</strong> Kingston Technology."
-        data-img="images/hyperx-cloud2.jpg"
-        data-reseñas='["Sonido excelente y muy cómodos.", "El micrófono es muy claro.","5⭐"]'>
-        <img src="images/hyperx-cloud2.jpg" alt="HyperX Cloud II" class="producto-img" />
-        <h3>Auriculares Gamer HyperX Cloud II</h3>
-        <p>Sonido envolvente y micrófono desmontable.</p>
-        <p><strong>$79.990 CLP</strong></p>
-        <button onclick="agregarAlCarrito('Auriculares Gamer HyperX Cloud II', 79990)">Agregar al carrito</button>
-    </div>
-
-    <div class="producto" data-categoria="consolas"
-        data-nombre="PlayStation 5"
-        data-descripcion="La consola de última generación de Sony, que ofrece gráficos impresionantes y tiempos de carga ultrarrápidos para una experiencia de juego inmersiva. <br><strong>Fabricante:</strong> Sony Interactive Entertainment | <strong>Distribuidor:</strong> Sony Store."
-        data-img="images/ps5.jpg"
-        data-reseñas='["Gráficos increíbles.", "Carga los juegos rapidísimo.","5⭐"]'>
-        <img src="images/ps5.jpg" alt="PlayStation 5" class="producto-img" />
-        <h3>PlayStation 5</h3>
-        <p>Consola de última generación.</p>
-        <p><strong>$549.990 CLP</strong></p>
-        <button onclick="agregarAlCarrito('PlayStation 5', 549990)">Agregar al carrito</button>
-    </div>
-
-    <div class="producto" data-categoria="computadores-gamers"
-        data-nombre="PC Gamer ASUS ROG Strix"
-        data-descripcion="Un potente equipo diseñado para los gamers más exigentes, equipado con los últimos componentes para ofrecer un rendimiento excepcional en cualquier juego. <br><strong>Fabricante:</strong> ASUS | <strong>Distribuidor:</strong> ASUS Store."
-        data-img="images/asus-rog-strix.jpg"
-        data-reseñas='["Rinde excelente en todos los juegos.", "Muy silencioso y rápido.","4⭐"]'>
-        <img src="images/asus-rog-strix.jpg" alt="PC Gamer ASUS ROG Strix" class="producto-img" />
-        <h3>PC Gamer ASUS ROG Strix</h3>
-        <p>Equipo de alto rendimiento para gamers.</p>
-        <p><strong>$1.299.990 CLP</strong></p>
-        <button onclick="agregarAlCarrito('PC Gamer ASUS ROG Strix', 1299990)">Agregar al carrito</button>
-    </div>
-
-    <div class="producto" data-categoria="sillas-gamers"
-        data-nombre="Silla Gamer Secretlab Titan"
-        data-descripcion="Diseñada para el máximo confort, esta silla ofrece un soporte ergonómico y personalización ajustable para sesiones de juego prolongadas. <br><strong>Fabricante:</strong> Secretlab | <strong>Distribuidor:</strong> Secretlab."
-        data-img="images/secretlab-titan.jpg"
-        data-reseñas='["Muy cómoda para largas sesiones.", "Materiales de alta calidad.","4⭐"]'>
-        <img src="images/secretlab-titan.jpg" alt="Silla Gamer Secretlab Titan" class="producto-img" />
-        <h3>Silla Gamer Secretlab Titan</h3>
-        <p>Soporte ergonómico y personalización.</p>
-        <p><strong>$349.990 CLP</strong></p>
-        <button onclick="agregarAlCarrito('Silla Gamer Secretlab Titan', 349990)">Agregar al carrito</button>
-    </div>
-
-    <div class="producto" data-categoria="mouse"
-        data-nombre="Mouse Gamer Logitech G502 HERO"
-        data-descripcion="Con sensor de alta precisión y botones personalizables, este mouse es ideal para gamers que buscan un control preciso y personalización. <br><strong>Fabricante:</strong> Logitech | <strong>Distribuidor:</strong> Logitech Store."
-        data-img="images/logitech-g502.jpg"
-        data-reseñas='["Precisión increíble.", "Muy configurable y cómodo.","4⭐"]'>
-        <img src="images/logitech-g502.jpg" alt="Mouse Gamer Logitech G502 HERO" class="producto-img" />
-        <h3>Mouse Gamer Logitech G502 HERO</h3>
-        <p>Sensor de alta precisión y botones personalizables.</p>
-        <p><strong>$49.990 CLP</strong></p>
-        <button onclick="agregarAlCarrito('Mouse Gamer Logitech G502 HERO', 49990)">Agregar al carrito</button>
-    </div>
-
-    <div class="producto" data-categoria="mousepad"
-        data-nombre="Mousepad Razer Goliathus Extended Chroma"
-        data-descripcion="Ofrece un área de juego amplia con iluminación RGB personalizable, asegurando una superficie suave y uniforme para el movimiento del mouse. <br><strong>Fabricante:</strong> Razer | <strong>Distribuidor:</strong> Razer Store."
-        data-img="images/razer-goliathus.jpg"
-        data-reseñas='["La iluminación RGB es espectacular.", "Superficie muy suave.","5⭐"]'>
-        <img src="images/razer-goliathus.jpg" alt="Mousepad Razer Goliathus Extended Chroma" class="producto-img" />
-        <h3>Mousepad Razer Goliathus Extended Chroma</h3>
-        <p>Área amplia e iluminación RGB.</p>
-        <p><strong>$29.990 CLP</strong></p>
-        <button onclick="agregarAlCarrito('Mousepad Razer Goliathus Extended Chroma', 29990)">Agregar al carrito</button>
-    </div>
-
-    <div class="producto" data-categoria="poleras-personalizadas"
-        data-nombre="Polera Gamer Personalizada 'Level-Up'"
-        data-descripcion="Una camiseta cómoda y estilizada, con la posibilidad de personalizarla con tu gamer tag o diseño favorito. <br><strong>Fabricante:</strong> Level-Up Gamer | <strong>Distribuidor:</strong> Level-Up Gamer."
-        data-img="images/polera-personalizada.png"
-        data-reseñas='["Muy cómoda y el diseño es genial.", "Me encantó poder personalizarla.","5⭐"]'>
-        <img src="images/polera-personalizada.png" alt="Polera Gamer Personalizada Level-Up" class="producto-img" />
-        <h3>Polera Gamer Personalizada 'Level-Up'</h3>
-        <p>Camiseta personalizada para gamers.</p>
-        <p><strong>$14.990 CLP</strong></p>
-        <button onclick="agregarAlCarrito('Polera Gamer Personalizada Level-Up', 14990)">Agregar al carrito</button>
-    </div>
-    <div class="extracto" style="text-align:center; margin-top:30px;">
-    <h2>¿Necesitas Soporte Técnico?</h2>
-    <p>Contacta directamente a nuestro equipo por WhatsApp para recibir ayuda personalizada.</p>
-    <a href="https://wa.me/56949623132?text=Hola,%20necesito%20soporte%20técnico%20con%20mi%20producto%20Level-Up%20Gamer" 
-       target="_blank" 
-       style="display:inline-block; background:#25D366; color:#fff; padding:12px 24px; border-radius:8px; font-size:18px; text-decoration:none; font-weight:bold;">
-        💬 Chatear con Soporte Técnico
-    </a>
-</div>
-</div>
+    <section id="carrito" class="extracto">
+        <h2>🛒 Carrito de Compras</h2>
+        <ul id="lista-carrito"></ul>
+        <p id="total"></p>
     </section>
 
     <!-- Modal para detalle de producto -->
-    <div id="modal-detalle" class="modal-detalle">
+    <div id="modal-detalle" class="modal-detalle" style="display:none;">
         <div class="modal-contenido">
             <span class="modal-cerrar" id="cerrar-modal">&times;</span>
             <h2 id="modal-nombre"></h2>
@@ -178,54 +88,240 @@
                 <h3>Reseñas</h3>
                 <ul id="modal-lista-reseñas"></ul>
             </div>
+            <div id="form-reseña" style="margin-top:20px; display:none;">
+                <h4>Deja tu reseña</h4>
+                <textarea id="texto-reseña" rows="2" maxlength="120" placeholder="Escribe tu opinión..." style="width:95%;"></textarea>
+                <div id="estrellas-reseña" style="font-size:1.5em; margin:8px 0;">
+                    <span data-star="1">☆</span>
+                    <span data-star="2">☆</span>
+                    <span data-star="3">☆</span>
+                    <span data-star="4">☆</span>
+                    <span data-star="5">☆</span>
+                </div>
+                <button id="enviar-reseña">Enviar reseña</button>
+            </div>
+            <button id="btn-reseñar" style="margin-top:10px;">Dejar reseña</button>
         </div>
     </div>
 
-    <section id="carrito" class="extracto">
-        <h2>🛒 Carrito de Compras</h2>
-        <ul id="lista-carrito"></ul>
-        <p id="total"></p>
-    </section>
-
     <script>
-    // Filtro por categoría
-    document.getElementById('filtro-categoria').addEventListener('change', function() {
-        const categoriaSeleccionada = this.value;
-        const productos = document.querySelectorAll('.producto');
-        productos.forEach(producto => {
-            const categoriaProducto = producto.getAttribute('data-categoria');
-            if (categoriaSeleccionada === 'todos' || categoriaProducto === categoriaSeleccionada) {
-                producto.style.display = 'block';
-            } else {
-                producto.style.display = 'none';
-            }
-        });
-        document.getElementById('modal-detalle').style.display = 'none';
-    });
+    const productos = [
+        {
+            nombre: "PlayStation 5",
+            precio: 650000,
+            categoria: "consolas",
+            img: "images/ps5.jpg",
+            descripcion: "La nueva generación de consolas PlayStation.",
+            reseñas: [
+                { texto: "¡Increíble potencia!", estrellas: 5 },
+                { texto: "La mejor consola de Sony.", estrellas: 5 }
+            ]
+        },
+        {
+            nombre: "Asus ROG Strix",
+            precio: 1200000,
+            categoria: "computadores-gamers",
+            img: "images/asus-rog-strix.jpg",
+            descripcion: "Notebook gamer de alto rendimiento con diseño ROG.",
+            reseñas: [
+                { texto: "Perfecto para gaming y trabajo.", estrellas: 5 },
+                { texto: "Excelente calidad de construcción.", estrellas: 4 }
+            ]
+        },
+        {
+            nombre: "Carcassonne",
+            precio: 25000,
+            categoria: "juegos-de-mesa",
+            img: "images/carcassonne.png",
+            descripcion: "Juego de mesa de estrategia y construcción de ciudades.",
+            reseñas: [
+                { texto: "Muy entretenido para toda la familia.", estrellas: 5 },
+                { texto: "Fácil de aprender.", estrellas: 4 }
+            ]
+        },
+        {
+            nombre: "Catan",
+            precio: 35000,
+            categoria: "juegos-de-mesa",
+            img: "images/catan.png",
+            descripcion: "El clásico juego de estrategia y comercio.",
+            reseñas: [
+                { texto: "Ideal para jugar con amigos.", estrellas: 5 },
+                { texto: "Nunca aburre.", estrellas: 4 }
+            ]
+        },
+        {
+            nombre: "HyperX Cloud II",
+            precio: 69000,
+            categoria: "accesorios",
+            img: "images/hyperx-cloud2.jpg",
+            descripcion: "Auriculares profesionales para gaming con sonido envolvente.",
+            reseñas: [
+                { texto: "Sonido espectacular.", estrellas: 5 },
+                { texto: "Muy cómodos para largas sesiones.", estrellas: 5 }
+            ]
+        },
+        {
+            nombre: "Logitech G502",
+            precio: 45000,
+            categoria: "mouse",
+            img: "images/logitech-g502.jpg",
+            descripcion: "Mouse gamer de alta precisión y personalización.",
+            reseñas: [
+                { texto: "Muy cómodo.", estrellas: 5 },
+                { texto: "Excelente para shooters.", estrellas: 4 }
+            ]
+        },
+        {
+            nombre: "Polera Personalizada",
+            precio: 18000,
+            categoria: "poleras-personalizadas",
+            img: "images/polera-personalizada.png",
+            descripcion: "Personaliza tu polera con tu gamer tag.",
+            reseñas: [
+                { texto: "¡Me encantó el diseño!", estrellas: 5 },
+                { texto: "Buena calidad.", estrellas: 4 }
+            ]
+        },
+        {
+            nombre: "Razer Goliathus",
+            precio: 22000,
+            categoria: "mousepad",
+            img: "images/razer-goliathus.jpg",
+            descripcion: "Mousepad gamer con superficie optimizada para precisión.",
+            reseñas: [
+                { texto: "Colores vibrantes.", estrellas: 5 },
+                { texto: "Muy espacioso.", estrellas: 4 }
+            ]
+        },
+        {
+            nombre: "Secretlab Titan",
+            precio: 350000,
+            categoria: "sillas-gamers",
+            img: "images/secretlab-titan.jpg",
+            descripcion: "Silla gamer premium para máxima comodidad.",
+            reseñas: [
+                { texto: "La mejor silla que he tenido.", estrellas: 5 },
+                { texto: "Muy ergonómica.", estrellas: 5 }
+            ]
+        },
+        {
+            nombre: "Xbox Controller",
+            precio: 55000,
+            categoria: "accesorios",
+            img: "images/xbox-controller.jpg",
+            descripcion: "Control inalámbrico para Xbox y PC.",
+            reseñas: [
+                { texto: "Excelente respuesta.", estrellas: 5 },
+                { texto: "Muy cómodo en las manos.", estrellas: 4 }
+            ]
+        },
+        {
+            nombre: "Soporte Técnico",
+            precio: 0,
+            categoria: "servicio-tecnico",
+            img: "images/servicio-tecnico.jpg",
+            descripcion: "¿Tienes problemas con tu producto? Haz clic en el botón para chatear con nuestro soporte técnico por WhatsApp.",
+            reseñas: [
+                { texto: "Me ayudaron rápido y resolvieron mi problema.", estrellas: 5 }
+            ],
+            soporte: true // bandera especial para mostrar botón de WhatsApp
+        }
+    ];
 
-    // Mostrar detalles y reseñas en modal al hacer clic en un producto
-    document.querySelectorAll('.producto').forEach(producto => {
-        producto.addEventListener('click', function(e) {
-            document.getElementById('modal-detalle').style.display = 'block';
-            document.getElementById('modal-nombre').textContent = producto.getAttribute('data-nombre');
-            document.getElementById('modal-img').src = producto.getAttribute('data-img');
-            document.getElementById('modal-img').alt = producto.getAttribute('data-nombre');
-document.getElementById('modal-descripcion').innerHTML = producto.getAttribute('data-descripcion');
-            // Reseñas
-            const reseñas = JSON.parse(producto.getAttribute('data-reseñas') || "[]");
-            const listaReseñas = document.getElementById('modal-lista-reseñas');
-            listaReseñas.innerHTML = "";
-            reseñas.forEach(r => {
-                const li = document.createElement('li');
-                li.textContent = r;
-                listaReseñas.appendChild(li);
+    // Obtén el usuario actual y su descuento
+    const currentUser = JSON.parse(localStorage.getItem("currentUser")) || {};
+    const descuento = currentUser.discount || 0;
+
+    // Renderizado del catálogo
+    function renderCatalogo(filtro = "todos") {
+        const catalogoDiv = document.getElementById("catalogo");
+        catalogoDiv.innerHTML = "";
+        productos.forEach((producto, idx) => {
+            if (filtro !== "todos" && producto.categoria !== filtro) return;
+            let precioFinal = producto.precio;
+            let precioHTML = `<span class="precio-descuento">$${producto.precio}</span>`;
+            if (descuento > 0) {
+                precioFinal = Math.round(producto.precio * (1 - descuento / 100));
+                precioHTML = `<span class="precio-original">$${producto.precio}</span> 
+                              <span class="precio-descuento">$${precioFinal}</span> 
+                              <span class="descuento-label">(-${descuento}%)</span>`;
+            }
+            // Calcular promedio de estrellas
+            const estrellasProm = producto.reseñas.length
+                ? Math.round(producto.reseñas.reduce((a, r) => a + r.estrellas, 0) / producto.reseñas.length)
+                : 0;
+            let estrellasHTML = "";
+            for (let i = 0; i < 5; i++) {
+                estrellasHTML += i < estrellasProm ? "★" : "☆";
+            }
+            let botonHTML = '';
+            if (producto.soporte) {
+                botonHTML = `<a href="https://wa.me/56949623132?text=Hola,%20necesito%20soporte%20técnico%20con%20mi%20producto%20Level-Up%20Gamer"
+                    target="_blank"
+                    style="display:inline-block; background:#25D366; color:#fff; padding:8px 16px; border-radius:8px; font-size:16px; text-decoration:none; font-weight:bold;">
+                    💬 Chatear con Soporte Técnico
+                </a>`;
+            } else {
+                botonHTML = `<button onclick="agregarAlCarrito('${producto.nombre}', ${precioFinal})">Agregar al carrito</button>`;
+            }
+            catalogoDiv.innerHTML += `
+                <div class="producto" 
+                    data-categoria="${producto.categoria}"
+                    data-nombre="${producto.nombre}"
+                    data-img="${producto.img}"
+                    data-descripcion="${producto.descripcion}"
+                    data-reseñas='${JSON.stringify(producto.reseñas)}'>
+                    ${
+                        producto.soporte
+                        ? `
+                            <h3>${producto.nombre}</h3>
+                            <p>${producto.descripcion}</p>
+                            ${botonHTML}
+                        `
+                        : `
+                            <img src="${producto.img}" alt="${producto.nombre}">
+                            <h3>${producto.nombre}</h3>
+                            <div class="estrellas">${estrellasHTML}</div>
+                            <p>${producto.descripcion}</p>
+                            <p>Precio: ${precioHTML}</p>
+                            ${botonHTML}
+                        `
+                    }
+                </div>
+            `;
+        });
+
+        // Asigna eventos para mostrar detalles en el modal
+        document.querySelectorAll('.producto').forEach(producto => {
+            producto.addEventListener('click', function(e) {
+                document.getElementById('modal-detalle').style.display = 'block';
+                document.getElementById('modal-nombre').textContent = producto.getAttribute('data-nombre');
+                document.getElementById('modal-img').src = producto.getAttribute('data-img');
+                document.getElementById('modal-img').alt = producto.getAttribute('data-nombre');
+                document.getElementById('modal-descripcion').innerHTML = producto.getAttribute('data-descripcion');
+                // Reseñas
+                const reseñas = JSON.parse(producto.getAttribute('data-reseñas') || "[]");
+                const listaReseñas = document.getElementById('modal-lista-reseñas');
+                listaReseñas.innerHTML = "";
+                reseñas.forEach(r => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<span class="estrellas">${"★".repeat(r.estrellas)}${"☆".repeat(5 - r.estrellas)}</span> ${r.texto}`;
+                    listaReseñas.appendChild(li);
+                });
+            });
+
+            // Evita que el clic en el botón dispare el evento del producto
+            producto.querySelector('button').addEventListener('click', function(e) {
+                e.stopPropagation();
             });
         });
+    }
 
-        // Evita que el clic en el botón dispare el evento del producto
-        producto.querySelector('button').addEventListener('click', function(e) {
-            e.stopPropagation();
-        });
+    // Filtro por categoría
+    document.getElementById('filtro-categoria').addEventListener('change', function() {
+        renderCatalogo(this.value);
+        document.getElementById('modal-detalle').style.display = 'none';
     });
 
     // Cerrar modal al hacer clic en la X
@@ -241,9 +337,14 @@ document.getElementById('modal-descripcion').innerHTML = producto.getAttribute('
         }
     };
 
+    // Función para agregar al carrito (puedes mejorarla según tu lógica)
     function agregarAlCarrito(nombre, precio) {
         alert(`Agregaste ${nombre} por $${precio} al carrito.`);
+        // Aquí puedes llamar a tu lógica real de carrito
     }
+
+    // Renderiza el catálogo al cargar
+    renderCatalogo();
     </script>
     <script src="scriptProductos.js"></script>
 </body>
