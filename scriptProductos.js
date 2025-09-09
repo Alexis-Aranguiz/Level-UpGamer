@@ -188,3 +188,16 @@ document.querySelectorAll('.producto').forEach(producto => {
         e.stopPropagation();
     });
 });
+
+document.getElementById("share-facebook").onclick = () => {
+    const { url } = getShareData();
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, "_blank");
+};
+document.getElementById("share-twitter").onclick = () => {
+    const { texto } = getShareData();
+    window.open(`https://twitter.com/intent/tweet?text=${texto}`, "_blank");
+};
+document.getElementById("share-whatsapp").onclick = () => {
+    const { texto } = getShareData();
+    window.open(`https://wa.me/?text=${texto}`, "_blank");
+};

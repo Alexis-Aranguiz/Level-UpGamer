@@ -5,41 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Productos Level-Up Gamer</title>
     <link rel="stylesheet" href="CSS/estilos.css" />
-    <style>
-        .producto {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 16px;
-            margin: 12px;
-            display: inline-block;
-            vertical-align: top;
-            width: 220px;
-            background: #fafafa;
-            box-shadow: 0 2px 8px #0001;
-            text-align: center;
-        }
-        .producto img {
-            max-width: 120px;
-            margin-bottom: 10px;
-        }
-        .estrellas {
-            color: #FFD700;
-            font-size: 1.1em;
-            margin-bottom: 6px;
-        }
-        .precio-original {
-            text-decoration: line-through;
-            color: #888;
-        }
-        .precio-descuento {
-            color: #e53935;
-            font-weight: bold;
-        }
-        .descuento-label {
-            color: #388e3c;
-            font-size: 0.95em;
-        }
-    </style>
+
 </head>
 <body>
     <header>
@@ -49,7 +15,8 @@
             <a href="productos.html">Productos</a> | 
             <a href="gestionUsuario.html">Usuario</a>|
             <a href="productoDescuento.html">Canjea Productos</a> |
-            <a href="canje.html">Referidos</a> 
+            <a href="canje.html">Referidos</a> |
+            <a href="blog.html">Blog</a>
         </nav>
     </header>
 
@@ -100,7 +67,15 @@
                 </div>
                 <button id="enviar-reseña">Enviar reseña</button>
             </div>
-            <button id="btn-reseñar" style="margin-top:10px;">Dejar reseña</button>
+                    <button id="btn-reseñar" style="margin-top:10px;">Dejar reseña</button>
+                    <div id="modal-compartir" style="margin-top:15px; text-align:center;">
+                        <h4>Compartir este producto</h4>
+                        <button id="share-facebook" class="btn-share fb">📘 Facebook</button>
+                        <button id="share-twitter" class="btn-share tw">🐦 Twitter</button>
+                        <button id="share-whatsapp" class="btn-share wa">💬 WhatsApp</button>
+            </div>
+
+            
         </div>
     </div>
 
