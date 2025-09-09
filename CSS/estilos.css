@@ -1,11 +1,11 @@
-/* Fondo general */
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
     background-color: #f5f6fa;
 }
 
-/* Barra superior (header) */
+
 header {
     background-color: #2d3436;
     color: #fff;
@@ -13,14 +13,14 @@ header {
     text-align: center;
 }
 
-/* Título principal */
+
 h1 {
     margin: 0;
     font-size: 32px;
     letter-spacing: 2px;
 }
 
-/* Menú de navegación */
+
 .menu {
     background-color: #0000ff;
     padding: 10px 0;
@@ -34,7 +34,7 @@ h1 {
     margin: 0 8px;
 }
 
-/* Extracto */
+
 .extracto {
     max-width: 900px;
     margin: 40px auto 80px auto;
@@ -44,7 +44,7 @@ h1 {
     padding: 30px;
 }
 
-/* Lista de productos en grid */
+
 .productos-lista {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -52,18 +52,18 @@ h1 {
     margin-top: 30px;
 }
 
-/* Producto individual */
+
 .producto {
     background: #fafafa;
     border: 1px solid #ddd;
     border-radius: 10px;
     padding: 20px;
     margin: 12px;
-    display: flex;                /* FLEX para alinear */
+    display: flex;                
     flex-direction: column;
     align-items: center;
     width: 220px;
-    min-height: 300px;            /* opcional para igualar altura */
+    min-height: 300px;            
     box-shadow: 0 2px 8px rgba(0,0,0,0.07);
     transition: box-shadow 0.2s;
     text-align: center;
@@ -95,7 +95,7 @@ h1 {
     padding: 8px 16px;
     cursor: pointer;
     font-weight: bold;
-    margin-top: auto; /* <-- Esto fuerza el botón al fondo */
+    margin-top: auto; 
     transition: background 0.2s;
 }
 
@@ -103,7 +103,7 @@ h1 {
     background-color: #00916e;
 }
 
-/* Carrito */
+
 #carrito ul {
     list-style: none;
     padding: 0;
@@ -113,7 +113,7 @@ h1 {
     margin-bottom: 8px;
 }
 
-/* Formularios verticales y ordenados (para Usuario) */
+
 form {
     display: flex;
     flex-direction: column;
@@ -160,7 +160,7 @@ form button:hover {
     margin-top: 0;
 }
 
-/* Barra inferior (footer) */
+
 footer {
     background-color: #00b894;
     color: white;
@@ -171,7 +171,7 @@ footer {
     bottom: 0;
 }
 
-/* Responsive */
+
 @media (max-width: 700px) {
     .extracto {
         padding: 0 10px;
@@ -225,7 +225,7 @@ footer {
 nav.menu {
     text-align: center;
 }
-/* Modal para detalle de producto */
+
 .modal-detalle {
     display: none;
     position: fixed;

@@ -1,11 +1,11 @@
 let carrito = [];
 let total = 0;
 
-// Recuperar puntos desde localStorage o iniciar en 0
+
 let puntosLevelUp = parseInt(localStorage.getItem('puntosLevelUp')) || 0;
 
 function agregarAlCarrito(nombre, precio) {
-    // Si el producto ya está en el carrito, aumenta la cantidad
+    
     const existente = carrito.find(item => item.nombre === nombre);
     if (existente) {
         existente.cantidad += 1;
@@ -25,7 +25,7 @@ function eliminarDelCarrito(nombre) {
 function modificarCantidad(nombre, nuevaCantidad) {
     const producto = carrito.find(item => item.nombre === nombre);
     if (producto) {
-        producto.cantidad = nuevaCantidad > 0 ? nuevaCantidad : 1;
+        producto.cantidad = nuevaCantidad > 0 ? Number(nuevaCantidad) : 1;
     }
     calcularTotal();
     mostrarCarrito();
@@ -39,7 +39,7 @@ function mostrarCarrito() {
     let lista = document.getElementById("lista-carrito");
     lista.innerHTML = "";
 
-    carrito.forEach((item, index) => {
+    carrito.forEach((item) => {
         let li = document.createElement("li");
         li.innerHTML = `
             ${item.nombre} - $${item.precio} x ${item.cantidad} = $${item.precio * item.cantidad}
@@ -52,7 +52,7 @@ function mostrarCarrito() {
 
     document.getElementById("total").textContent = "Total: $" + total;
 
-    // Mostrar puntos Level-Up actuales
+  
     let puntosDiv = document.getElementById("puntos-levelup");
     if (!puntosDiv) {
         puntosDiv = document.createElement("div");
@@ -61,7 +61,7 @@ function mostrarCarrito() {
     }
     puntosDiv.innerHTML = `Puntos Level-Up acumulados: <b>${puntosLevelUp}</b>`;
 
-    // Mostrar botón de pagar solo si hay productos
+    
     let pagarDiv = document.getElementById("pagar-div");
     if (!pagarDiv) {
         pagarDiv = document.createElement("div");
@@ -78,11 +78,11 @@ function mostrarCarrito() {
 }
 
 function realizarPago() {
-    // Calcular puntos Level-Up (1% del total)
+    
     const puntos = Math.floor(total * 0.001);
-    puntosLevelUp += puntos; // Sumar a los puntos acumulados
+    puntosLevelUp += puntos; 
 
-    // Guardar los puntos en localStorage
+    
     localStorage.setItem('puntosLevelUp', puntosLevelUp);
 
     const mensaje = `
@@ -92,25 +92,25 @@ function realizarPago() {
         Total acumulado: <b>${puntosLevelUp} puntos Level-Up</b>.
     `;
 
-    // Vaciar carrito antes de mostrar el mensaje
+    
     carrito = [];
     calcularTotal();
     mostrarCarrito();
 
-    // Mostrar el mensaje aunque el carrito esté vacío
+    
     let pagarDiv = document.getElementById("pagar-div");
     if (pagarDiv) {
         pagarDiv.innerHTML = `<div id="mensaje-pago" style="margin-top:10px;">${mensaje}</div>`;
     }
 
-    // Actualizar visualización de puntos
+    
     let puntosDiv = document.getElementById("puntos-levelup");
     if (puntosDiv) {
         puntosDiv.innerHTML = `Puntos Level-Up acumulados: <b>${puntosLevelUp}</b>`;
     }
 }
 
-// Guardar y cargar reseñas en localStorage por producto
+
 function getReseñasExtra(nombre) {
     return JSON.parse(localStorage.getItem("reseñas_" + nombre)) || [];
 }
@@ -120,12 +120,12 @@ function saveReseña(nombre, reseña) {
     localStorage.setItem("reseñas_" + nombre, JSON.stringify(arr));
 }
 
-// Mostrar el formulario de reseña
+
 document.getElementById('btn-reseñar').onclick = function() {
     document.getElementById('form-reseña').style.display = 'block';
 };
 
-// Manejo de estrellas seleccionables
+
 let estrellasSeleccionadas = 0;
 document.querySelectorAll('#estrellas-reseña span').forEach(star => {
     star.onclick = function() {
@@ -136,7 +136,7 @@ document.querySelectorAll('#estrellas-reseña span').forEach(star => {
     };
 });
 
-// Enviar reseña
+
 document.getElementById('enviar-reseña').onclick = function() {
     const texto = document.getElementById('texto-reseña').value.trim();
     if (!texto) {
@@ -157,11 +157,11 @@ document.getElementById('enviar-reseña').onclick = function() {
     alert("¡Gracias por tu reseña!");
 };
 
-// Mostrar reseñas (originales + nuevas) en el modal
+
 function mostrarReseñasModal(nombreProducto) {
-    // Busca el producto original
+    
     const producto = productos.find(p => p.nombre === nombreProducto);
-    const reseñasOriginales = producto ? producto.reseñas : [];
+    const reseñasOriginales = producto ? (producto.reseñas || []) : [];
     const reseñasExtras = getReseñasExtra(nombreProducto);
     const reseñas = [...reseñasOriginales, ...reseñasExtras];
     const listaReseñas = document.getElementById('modal-lista-reseñas');
@@ -173,21 +173,42 @@ function mostrarReseñasModal(nombreProducto) {
     });
 }
 
-// Modifica el evento de mostrar modal para usar mostrarReseñasModal
-document.querySelectorAll('.producto').forEach(producto => {
-    producto.addEventListener('click', function(e) {
+
+document.querySelectorAll('.producto').forEach(card => {
+    card.addEventListener('click', function() {
+        const nombre = card.getAttribute('data-nombre');
+        const img = card.getAttribute('data-img');
+
+       
         document.getElementById('modal-detalle').style.display = 'block';
-        document.getElementById('modal-nombre').textContent = producto.getAttribute('data-nombre');
-        document.getElementById('modal-img').src = producto.getAttribute('data-img');
-        document.getElementById('modal-img').alt = producto.getAttribute('data-nombre');
-        document.getElementById('modal-descripcion').innerHTML = producto.getAttribute('data-descripcion');
+        document.getElementById('modal-nombre').textContent = nombre;
+        document.getElementById('modal-img').src = img;
+        document.getElementById('modal-img').alt = nombre;
+
+        
+        const p = productos.find(x => x.nombre === nombre);
+        const descLargaDesdeArray =
+            p ? (p.descripcionLarga || p.descripcion || "") : "";
+
+        
+        const descFromDataset = card.getAttribute('data-descripcion') || "";
+
+        
+        const descripcionParaModal = descLargaDesdeArray || descFromDataset || "";
+        document.getElementById('modal-descripcion').innerHTML = descripcionParaModal;
+
+       
         document.getElementById('form-reseña').style.display = 'none';
-        mostrarReseñasModal(producto.getAttribute('data-nombre'));
+        mostrarReseñasModal(nombre);
     });
-    producto.querySelector('button').addEventListener('click', function(e) {
-        e.stopPropagation();
-    });
+
+ 
+    const btn = card.querySelector('button');
+    if (btn) btn.addEventListener('click', e => e.stopPropagation());
+    const link = card.querySelector('a');
+    if (link) link.addEventListener('click', e => e.stopPropagation());
 });
+
 
 document.getElementById("share-facebook").onclick = () => {
     const { url } = getShareData();

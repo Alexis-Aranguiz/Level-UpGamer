@@ -44,7 +44,6 @@
         <p id="total"></p>
     </section>
 
-    <!-- Modal para detalle de producto -->
     <div id="modal-detalle" class="modal-detalle" style="display:none;">
         <div class="modal-contenido">
             <span class="modal-cerrar" id="cerrar-modal">&times;</span>
@@ -81,134 +80,114 @@
 
     <script>
     const productos = [
-        {
-            nombre: "PlayStation 5",
-            precio: 650000,
-            categoria: "consolas",
-            img: "images/ps5.jpg",
-            descripcion: "La nueva generación de consolas PlayStation.",
-            reseñas: [
-                { texto: "¡Increíble potencia!", estrellas: 5 },
-                { texto: "La mejor consola de Sony.", estrellas: 5 }
-            ]
-        },
-        {
-            nombre: "Asus ROG Strix",
-            precio: 1200000,
-            categoria: "computadores-gamers",
-            img: "images/asus-rog-strix.jpg",
-            descripcion: "Notebook gamer de alto rendimiento con diseño ROG.",
-            reseñas: [
-                { texto: "Perfecto para gaming y trabajo.", estrellas: 5 },
-                { texto: "Excelente calidad de construcción.", estrellas: 4 }
-            ]
-        },
-        {
-            nombre: "Carcassonne",
-            precio: 25000,
-            categoria: "juegos-de-mesa",
-            img: "images/carcassonne.png",
-            descripcion: "Juego de mesa de estrategia y construcción de ciudades.",
-            reseñas: [
-                { texto: "Muy entretenido para toda la familia.", estrellas: 5 },
-                { texto: "Fácil de aprender.", estrellas: 4 }
-            ]
-        },
-        {
-            nombre: "Catan",
-            precio: 35000,
-            categoria: "juegos-de-mesa",
-            img: "images/catan.png",
-            descripcion: "El clásico juego de estrategia y comercio.",
-            reseñas: [
-                { texto: "Ideal para jugar con amigos.", estrellas: 5 },
-                { texto: "Nunca aburre.", estrellas: 4 }
-            ]
-        },
-        {
-            nombre: "HyperX Cloud II",
-            precio: 69000,
-            categoria: "accesorios",
-            img: "images/hyperx-cloud2.jpg",
-            descripcion: "Auriculares profesionales para gaming con sonido envolvente.",
-            reseñas: [
-                { texto: "Sonido espectacular.", estrellas: 5 },
-                { texto: "Muy cómodos para largas sesiones.", estrellas: 5 }
-            ]
-        },
-        {
-            nombre: "Logitech G502",
-            precio: 45000,
-            categoria: "mouse",
-            img: "images/logitech-g502.jpg",
-            descripcion: "Mouse gamer de alta precisión y personalización.",
-            reseñas: [
-                { texto: "Muy cómodo.", estrellas: 5 },
-                { texto: "Excelente para shooters.", estrellas: 4 }
-            ]
-        },
-        {
-            nombre: "Polera Personalizada",
-            precio: 18000,
-            categoria: "poleras-personalizadas",
-            img: "images/polera-personalizada.png",
-            descripcion: "Personaliza tu polera con tu gamer tag.",
-            reseñas: [
-                { texto: "¡Me encantó el diseño!", estrellas: 5 },
-                { texto: "Buena calidad.", estrellas: 4 }
-            ]
-        },
-        {
-            nombre: "Razer Goliathus",
-            precio: 22000,
-            categoria: "mousepad",
-            img: "images/razer-goliathus.jpg",
-            descripcion: "Mousepad gamer con superficie optimizada para precisión.",
-            reseñas: [
-                { texto: "Colores vibrantes.", estrellas: 5 },
-                { texto: "Muy espacioso.", estrellas: 4 }
-            ]
-        },
-        {
-            nombre: "Secretlab Titan",
-            precio: 350000,
-            categoria: "sillas-gamers",
-            img: "images/secretlab-titan.jpg",
-            descripcion: "Silla gamer premium para máxima comodidad.",
-            reseñas: [
-                { texto: "La mejor silla que he tenido.", estrellas: 5 },
-                { texto: "Muy ergonómica.", estrellas: 5 }
-            ]
-        },
-        {
-            nombre: "Xbox Controller",
-            precio: 55000,
-            categoria: "accesorios",
-            img: "images/xbox-controller.jpg",
-            descripcion: "Control inalámbrico para Xbox y PC.",
-            reseñas: [
-                { texto: "Excelente respuesta.", estrellas: 5 },
-                { texto: "Muy cómodo en las manos.", estrellas: 4 }
-            ]
-        },
-        {
-            nombre: "Soporte Técnico",
-            precio: 0,
-            categoria: "servicio-tecnico",
-            img: "images/servicio-tecnico.jpg",
-            descripcion: "¿Tienes problemas con tu producto? Haz clic en el botón para chatear con nuestro soporte técnico por WhatsApp.",
-            reseñas: [
-                { texto: "Me ayudaron rápido y resolvieron mi problema.", estrellas: 5 }
-            ],
-            soporte: true // bandera especial para mostrar botón de WhatsApp
-        }
-    ];
+  {
+    nombre: "PlayStation 5",
+    precio: 650000,
+    categoria: "consolas",
+    img: "images/ps5.jpg",
+    descripcion: "La nueva generación de consolas PlayStation.",
+    descripcionLarga: "La consola de última generación de Sony, que ofrece gráficos impresionantes y tiempos de carga ultrarrápidos para una experiencia de juego inmersiva.", // larga (modal)
+    reseñas: [ { texto: "¡Increíble potencia!", estrellas: 5 }, { texto: "La mejor consola de Sony.", estrellas: 5 } ]
+  },
+  {
+    nombre: "Asus ROG Strix",
+    precio: 1200000,
+    categoria: "computadores-gamers",
+    img: "images/asus-rog-strix.jpg",
+    descripcion: "Notebook gamer de alto rendimiento.",
+    descripcionLarga: "PC Gamer ASUS ROG Strix: un potente equipo diseñado para los gamers más exigentes, equipado con los últimos componentes para ofrecer un rendimiento excepcional en cualquier juego.",
+    reseñas: [ { texto: "Perfecto para gaming y trabajo.", estrellas: 5 }, { texto: "Excelente calidad de construcción.", estrellas: 4 } ]
+  },
+  {
+    nombre: "Carcassonne",
+    precio: 25000,
+    categoria: "juegos-de-mesa",
+    img: "images/carcassonne.png",
+    descripcion: "Juego de mesa de estrategia y ciudades.",
+    descripcionLarga: "Un juego de colocación de fichas donde los jugadores construyen el paisaje alrededor de la fortaleza medieval de Carcassonne. Ideal para 2-5 jugadores y fácil de aprender.",
+    reseñas: [ { texto: "Muy entretenido para toda la familia.", estrellas: 5 }, { texto: "Fácil de aprender.", estrellas: 4 } ]
+  },
+  {
+    nombre: "Catan",
+    precio: 35000,
+    categoria: "juegos-de-mesa",
+    img: "images/catan.png",
+    descripcion: "El clásico de estrategia y comercio.",
+    descripcionLarga: "Un clásico juego de estrategia donde los jugadores compiten por colonizar y expandirse en la isla de Catan. Ideal para 3-4 jugadores y perfecto para noches de juego en familia o con amigos.",
+    reseñas: [ { texto: "Ideal para jugar con amigos.", estrellas: 5 }, { texto: "Nunca aburre.", estrellas: 4 } ]
+  },
+  {
+    nombre: "HyperX Cloud II",
+    precio: 69000,
+    categoria: "accesorios",
+    img: "images/hyperx-cloud2.jpg",
+    descripcion: "Auriculares gamer con gran sonido.",
+    descripcionLarga: "Auriculares Gamer HyperX Cloud II: proporcionan un sonido envolvente de calidad con un micrófono desmontable y almohadillas de espuma viscoelástica para mayor comodidad durante largas sesiones de juego.",
+    reseñas: [ { texto: "Sonido espectacular.", estrellas: 5 }, { texto: "Muy cómodos para largas sesiones.", estrellas: 5 } ]
+  },
+  {
+    nombre: "Logitech G502",
+    precio: 45000,
+    categoria: "mouse",
+    img: "images/logitech-g502.jpg",
+    descripcion: "Mouse gamer de alta precisión.",
+    descripcionLarga: "Mouse Gamer Logitech G502 HERO: con sensor de alta precisión y botones personalizables, este mouse es ideal para gamers que buscan un control preciso y personalización.",
+    reseñas: [ { texto: "Muy cómodo.", estrellas: 5 }, { texto: "Excelente para shooters.", estrellas: 4 } ]
+  },
+  {
+    nombre: "Polera Personalizada",
+    precio: 18000,
+    categoria: "poleras-personalizadas",
+    img: "images/polera-personalizada.png",
+    descripcion: "Personaliza tu polera con tu tag.",
+    descripcionLarga: "Polera Gamer Personalizada 'Level-Up': una camiseta cómoda y estilizada, con la posibilidad de personalizarla con tu gamer tag o diseño favorito.",
+    reseñas: [ { texto: "¡Me encantó el diseño!", estrellas: 5 }, { texto: "Buena calidad.", estrellas: 4 } ]
+  },
+  {
+    nombre: "Razer Goliathus",
+    precio: 22000,
+    categoria: "mousepad",
+    img: "images/razer-goliathus.jpg",
+    descripcion: "Mousepad amplio para precisión.",
+    descripcionLarga: "Mousepad Razer Goliathus Extended Chroma: ofrece un área de juego amplia con iluminación RGB personalizable, asegurando una superficie suave y uniforme para el movimiento del mouse.",
+    reseñas: [ { texto: "Colores vibrantes.", estrellas: 5 }, { texto: "Muy espacioso.", estrellas: 4 } ]
+  },
+  {
+    nombre: "Secretlab Titan",
+    precio: 350000,
+    categoria: "sillas-gamers",
+    img: "images/secretlab-titan.jpg",
+    descripcion: "Silla gamer premium y ergonómica.",
+    descripcionLarga: "Silla Gamer Secretlab Titan: diseñada para el máximo confort, esta silla ofrece un soporte ergonómico y personalización ajustable para sesiones de juego prolongadas.",
+    reseñas: [ { texto: "La mejor silla que he tenido.", estrellas: 5 }, { texto: "Muy ergonómica.", estrellas: 5 } ]
+  },
+  {
+    nombre: "Xbox Controller",
+    precio: 55000,
+    categoria: "accesorios",
+    img: "images/xbox-controller.jpg",
+    descripcion: "Control inalámbrico para Xbox y PC.",
+    descripcionLarga: "Controlador Inalámbrico Xbox Series X: ofrece una experiencia de juego cómoda con botones mapeables y una respuesta táctil mejorada. Compatible con consolas Xbox y PC.",
+    reseñas: [ { texto: "Excelente respuesta.", estrellas: 5 }, { texto: "Muy cómodo en las manos.", estrellas: 4 } ]
+  },
+  {
+    nombre: "Soporte Técnico",
+    precio: 0,
+    categoria: "servicio-tecnico",
+    img: "images/servicio-tecnico.jpg",
+    descripcion: "Chatea con nuestro soporte por WhatsApp.",
+    descripcionLarga: "¿Tienes problemas con tu producto? Haz clic en el botón para chatear con nuestro soporte técnico por WhatsApp.",
+    reseñas: [ { texto: "Me ayudaron rápido y resolvieron mi problema.", estrellas: 5 } ],
+    soporte: true
+  }
+];
 
-    // Obtén el usuario actual y su descuento
+
+
     const currentUser = JSON.parse(localStorage.getItem("currentUser")) || {};
     const descuento = currentUser.discount || 0;
 
-    // Renderizado del catálogo
+
     function renderCatalogo(filtro = "todos") {
         const catalogoDiv = document.getElementById("catalogo");
         catalogoDiv.innerHTML = "";
@@ -222,7 +201,7 @@
                               <span class="precio-descuento">$${precioFinal}</span> 
                               <span class="descuento-label">(-${descuento}%)</span>`;
             }
-            // Calcular promedio de estrellas
+
             const estrellasProm = producto.reseñas.length
                 ? Math.round(producto.reseñas.reduce((a, r) => a + r.estrellas, 0) / producto.reseñas.length)
                 : 0;
@@ -267,7 +246,7 @@
             `;
         });
 
-        // Asigna eventos para mostrar detalles en el modal
+
         document.querySelectorAll('.producto').forEach(producto => {
             producto.addEventListener('click', function(e) {
                 document.getElementById('modal-detalle').style.display = 'block';
@@ -275,7 +254,7 @@
                 document.getElementById('modal-img').src = producto.getAttribute('data-img');
                 document.getElementById('modal-img').alt = producto.getAttribute('data-nombre');
                 document.getElementById('modal-descripcion').innerHTML = producto.getAttribute('data-descripcion');
-                // Reseñas
+
                 const reseñas = JSON.parse(producto.getAttribute('data-reseñas') || "[]");
                 const listaReseñas = document.getElementById('modal-lista-reseñas');
                 listaReseñas.innerHTML = "";
@@ -286,25 +265,25 @@
                 });
             });
 
-            // Evita que el clic en el botón dispare el evento del producto
+
             producto.querySelector('button').addEventListener('click', function(e) {
                 e.stopPropagation();
             });
         });
     }
 
-    // Filtro por categoría
+
     document.getElementById('filtro-categoria').addEventListener('change', function() {
         renderCatalogo(this.value);
         document.getElementById('modal-detalle').style.display = 'none';
     });
 
-    // Cerrar modal al hacer clic en la X
+
     document.getElementById('cerrar-modal').onclick = function() {
         document.getElementById('modal-detalle').style.display = 'none';
     };
 
-    // Opcional: cerrar modal al hacer clic fuera del contenido
+
     window.onclick = function(event) {
         const modal = document.getElementById('modal-detalle');
         if (event.target === modal) {
@@ -312,13 +291,13 @@
         }
     };
 
-    // Función para agregar al carrito (puedes mejorarla según tu lógica)
+
     function agregarAlCarrito(nombre, precio) {
         alert(`Agregaste ${nombre} por $${precio} al carrito.`);
-        // Aquí puedes llamar a tu lógica real de carrito
+        
     }
 
-    // Renderiza el catálogo al cargar
+
     renderCatalogo();
     </script>
     <script src="scriptProductos.js"></script>
