@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Usuario | Level-Up Gamer</title>
     <link rel="stylesheet" href="CSS/estilos.css" />
-    <!-- Flatpickr CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 <body>
@@ -82,19 +81,18 @@
     <div id="info-usuario"></div>
     <button id="logoutBtn">Cerrar sesión</button>
 
-    <!-- Flatpickr JS -->
+   
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
     <script>
     flatpickr("#birthdate", {
         "locale": "es",
-        dateFormat: "d/m/Y", // dd/mm/aaaa
+        dateFormat: "d/m/Y", 
         maxDate: "today"
     });
     </script>
 
     <script>
-    // Simulación de Storage (puedes reemplazar esto por tu propio sistema)
     const Storage = {
         get: (key, def) => JSON.parse(localStorage.getItem(key)) || def,
         set: (key, val) => localStorage.setItem(key, JSON.stringify(val)),
@@ -112,7 +110,7 @@
         const logoutBtn = document.querySelector("#logoutBtn");
         const infoUsuario = document.querySelector("#info-usuario");
 
-        // REGISTRO
+
         if (registerForm) {
             registerForm.addEventListener("submit", e => {
                 e.preventDefault();
@@ -121,7 +119,7 @@
                 const password = registerForm.querySelector("#password").value;
                 const birthdate = registerForm.querySelector("#birthdate").value;
 
-                // Validar campos vacíos
+                
                 if (!name) {
                     alert("Este campo no debe estar vacio");
                     registerForm.querySelector("#name").focus();
@@ -145,7 +143,7 @@
 
                 const birth = new Date(birthdate);
 
-                // Validar edad (18+)
+                
                 const today = new Date();
                 let age = today.getFullYear() - birth.getFullYear();
                 const m = today.getMonth() - birth.getMonth();
@@ -157,13 +155,13 @@
                     return;
                 }
 
-                // Validar correo Duoc
+               
                 let discount = 0;
                 if (/@duoc(\.cl|uc\.cl)$/i.test(email)) {
                     discount = 20;
                 }
 
-                // Validar si el usuario ya existe
+             
                 const users = Storage.get("users", []);
                 if (users.some(u => u.email === email)) {
                     alert("Ya existe un usuario registrado con este correo.");
@@ -178,7 +176,7 @@
             });
         }
 
-        // LOGIN
+      
         if (loginForm) {
             loginForm.addEventListener("submit", e => {
                 e.preventDefault();
@@ -197,7 +195,7 @@
             });
         }
 
-        // Mostrar información del usuario
+       
         const currentUser = Storage.get("currentUser");
         if (currentUser) {
             infoUsuario.innerHTML = `
@@ -211,7 +209,7 @@
             infoUsuario.innerHTML = "<p>No has iniciado sesión.</p>";
         }
 
-        // Cerrar sesión
+        
         if (logoutBtn) {
             logoutBtn.addEventListener("click", () => {
                 Storage.remove("currentUser");
